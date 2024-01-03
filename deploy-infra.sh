@@ -17,6 +17,8 @@ echo $CODEPIPELINE_BUCKET
 CFN_BUCKET="$STACK_NAME-cfn-$AWS_ACCOUNT_ID"
 echo $CFN_BUCKET
 
+DOMAIN=vincesite.com
+
 
 # Deploys static resources
 echo "\n\n=========== Deploying setup.yml ==========="
@@ -60,6 +62,7 @@ aws cloudformation deploy \
   --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides \
     EC2InstanceType=$EC2_INSTANCE_TYPE \
+    Domain=$DOMAIN \ 
     GitHubOwner=$GH_OWNER \
     GitHubRepo=$GH_REPO \
     GitHubBranch=$GH_BRANCH \

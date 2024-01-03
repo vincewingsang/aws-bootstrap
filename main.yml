@@ -22,8 +22,9 @@ Parameters:
   GitHubPersonalAccessToken:
     Type: String
     NoEcho: true
-    Description: 'A GitHub personal access token with "repo" and
-"admin:repo_hook" permissions.'
+    Description: 'A GitHub personal access token with "repo" and "admin:repo_hook" permissions.'
+  Domain:
+  Type: String
 
 
 Resources:
@@ -179,19 +180,23 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: stage.yml
-      TimeoutInMinutes: 30 
+      TimeoutInMinutes: 30
       Parameters:
-        EC2InstanceType: !Ref EC2InstanceType 
+        EC2InstanceType: !Ref EC2InstanceType
         EC2AMI: !Ref EC2AMI
+        Domain: !Ref Domain 
+        SubDomain: staging 
+
   Prod:
-    Type: AWS::CloudFormation::Stack 
-    DependsOn: Staging
+    Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: stage.yml 
-      TimeoutInMinutes: 30 
+      TemplateURL: stage.yml
+      TimeoutInMinutes: 30
       Parameters:
-        EC2InstanceType: !Ref EC2InstanceType 
+        EC2InstanceType: !Ref EC2InstanceType
         EC2AMI: !Ref EC2AMI
+        Domain: !Ref Domain
+        SubDomain: prod 
 
 Outputs:
 
