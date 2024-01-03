@@ -1,5 +1,6 @@
 #source aws_credentials.sh
 
+DOMAIN=vincesite.com
 STACK_NAME=awsbootstrap
 REGION=us-east-1 
 CLI_PROFILE=awsbootstrap
@@ -16,8 +17,6 @@ echo $CODEPIPELINE_BUCKET
 
 CFN_BUCKET="$STACK_NAME-cfn-$AWS_ACCOUNT_ID"
 echo $CFN_BUCKET
-
-DOMAIN=vincesite.com
 
 
 # Deploys static resources
@@ -52,7 +51,7 @@ fi
 
 
 # Deploy the CloudFormation template
-echo "\n\n=========== Deploying main.yml ===========" 
+echo -e "\n\n=========== Deploying main.yml ==========="
 aws cloudformation deploy \
   --region $REGION \
   --profile $CLI_PROFILE \
@@ -62,7 +61,7 @@ aws cloudformation deploy \
   --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides \
     EC2InstanceType=$EC2_INSTANCE_TYPE \
-    Domain=$DOMAIN \ 
+    Domain=$DOMAIN \
     GitHubOwner=$GH_OWNER \
     GitHubRepo=$GH_REPO \
     GitHubBranch=$GH_BRANCH \
